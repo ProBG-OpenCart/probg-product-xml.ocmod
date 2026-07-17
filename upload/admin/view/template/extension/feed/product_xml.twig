@@ -1,0 +1,315 @@
+{{ header }}{{ column_left }}
+
+<div id="content">
+
+  <div class="page-header">
+    <div class="container-fluid">
+
+      <div class="pull-right">
+        <button type="submit"
+                form="form-product-xml"
+                data-toggle="tooltip"
+                title="{{ button_save }}"
+                class="btn btn-primary">
+          <i class="fa fa-save"></i>
+        </button>
+
+        <a href="{{ cancel }}"
+           data-toggle="tooltip"
+           title="{{ button_cancel }}"
+           class="btn btn-default">
+          <i class="fa fa-reply"></i>
+        </a>
+      </div>
+
+      <h1>{{ heading_title }}</h1>
+
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    {% if error_warning %}
+      <div class="alert alert-danger alert-dismissible">
+        <i class="fa fa-exclamation-circle"></i>
+        {{ error_warning }}
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+    {% endif %}
+
+    <div class="panel panel-default">
+
+      <div class="panel-heading">
+        <h3 class="panel-title">
+          <i class="fa fa-feed"></i> {{ text_edit }}
+        </h3>
+      </div>
+
+      <div class="panel-body">
+
+        <form action="{{ action }}"
+              method="post"
+              enctype="multipart/form-data"
+              id="form-product-xml"
+              class="form-horizontal">
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              {{ entry_status }}
+            </label>
+
+            <div class="col-sm-9">
+              <select name="feed_product_xml_status" class="form-control">
+                {% if feed_product_xml_status %}
+                  <option value="1" selected="selected">{{ text_enabled }}</option>
+                  <option value="0">{{ text_disabled }}</option>
+                {% else %}
+                  <option value="1">{{ text_enabled }}</option>
+                  <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>
+          </div>
+
+          <hr />
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              {{ entry_product_id }}
+            </label>
+
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled" />
+                  {{ text_always_enabled }}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label">
+              {{ entry_product_name }}
+            </label>
+
+            <div class="col-sm-9">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" checked="checked" disabled="disabled" />
+                  {{ text_always_enabled }}
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-3 control-label" for="input-category">
+              {{ entry_feed_categories }}
+            </label>
+
+            <div class="col-sm-9">
+
+              <input type="text"
+                     value=""
+                     placeholder="{{ entry_category }}"
+                     id="input-category"
+                     class="form-control" />
+
+              <div id="product-xml-categories" class="well well-sm"
+                   style="height: 150px; overflow: auto; margin-top:10px;">
+
+                {% for category in feed_product_xml_categories_selected %}
+                  <div id="product-xml-category{{ category.category_id }}">
+                    <i class="fa fa-minus-circle"></i>
+
+                    {{ category.name }}
+
+                    <input type="hidden"
+                           name="feed_product_xml_selected_categories[]"
+                           value="{{ category.category_id }}" />
+                  </div>
+                {% endfor %}
+
+              </div>
+
+            </div>
+          </div>
+
+          {% set fields = [
+            ['feed_product_xml_description', entry_description],
+            ['feed_product_xml_plain_text_description', entry_plain_text_description],
+            ['feed_product_xml_product_url', entry_product_url],
+            ['feed_product_xml_price', entry_price],
+            ['feed_product_xml_special', entry_special],
+            ['feed_product_xml_image', entry_image],
+            ['feed_product_xml_additional_images', entry_additional_images],
+            ['feed_product_xml_stock', entry_stock],
+            ['feed_product_xml_quantity', entry_quantity],
+            ['feed_product_xml_brand', entry_brand],
+            ['feed_product_xml_model', entry_model],
+            ['feed_product_xml_sku', entry_sku],
+            ['feed_product_xml_upc', entry_upc],
+            ['feed_product_xml_ean', entry_ean],
+            ['feed_product_xml_jan', entry_jan],
+            ['feed_product_xml_isbn', entry_isbn],
+            ['feed_product_xml_mpn', entry_mpn],
+            ['feed_product_xml_categories', entry_categories],
+            ['feed_product_xml_options', entry_options]
+          ] %}
+
+          {% for field in fields %}
+            <div class="form-group">
+
+              <label class="col-sm-3 control-label">
+                {{ field[1] }}
+              </label>
+
+              <div class="col-sm-9">
+
+                <label class="radio-inline">
+                  <input type="radio"
+                         name="{{ field[0] }}"
+                         value="1"
+                         {% if attribute(_context, field[0]) %}checked="checked"{% endif %} />
+                  {{ text_enabled }}
+                </label>
+
+                <label class="radio-inline">
+                  <input type="radio"
+                         name="{{ field[0] }}"
+                         value="0"
+                         {% if not attribute(_context, field[0]) %}checked="checked"{% endif %} />
+                  {{ text_disabled }}
+                </label>
+
+              </div>
+
+            </div>
+          {% endfor %}
+
+          <hr />
+          <div class="form-group">
+            <h3 class="col-sm-12">
+              {{ help_htaccess }}
+            </h3>
+            <div class="col-sm-12">
+              <textarea class="form-control" rows="1" readonly>{{ entry_htaccess }}</textarea>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-12" for="feed_url">
+                  {{ entry_feed_url }}
+                </label>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" id="feed_url" value="{{ feed_url }}" class="form-control" readonly />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" onclick="navigator.clipboard.writeText('{{ feed_url }}')">
+                        {{ button_copy }}
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label class="col-sm-12" for="feed_url_seo">
+                  {{ entry_feed_url_seo }}
+                </label>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <input type="text" id="feed_url_seo" value="{{ feed_url_seo }}" class="form-control" readonly />
+                    <span class="input-group-btn">
+                      <button type="button" class="btn btn-default" onclick="navigator.clipboard.writeText('{{ feed_url_seo }}')">
+                        {{ button_copy }}
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+
+      $('#input-category').autocomplete({
+
+          'source': function(request, response) {
+
+              $.ajax({
+
+                  url: 'index.php?route=extension/feed/product_xml/autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+
+                  dataType: 'json',
+
+                  success: function(json) {
+
+                      response($.map(json, function(item) {
+
+                          return {
+                              label: item['name'],
+                              value: item['category_id']
+                          }
+
+                      }));
+
+                  }
+
+              });
+
+          },
+
+          'select': function(item) {
+
+              $('#input-category').val('');
+
+              if ($('#product-xml-category' + item['value']).length) {
+                  return false;
+              }
+
+
+              $('#product-xml-categories').append(
+
+                  '<div id="product-xml-category' + item['value'] + '">' +
+
+                  '<i class="fa fa-minus-circle"></i> ' +
+
+                  item['label'] +
+
+                  '<input type="hidden" ' +
+                  'name="feed_product_xml_selected_categories[]" ' +
+                  'value="' + item['value'] + '" />' +
+
+                  '</div>'
+
+              );
+
+          }
+
+      });
+
+
+      $('#product-xml-categories').on('click', '.fa-minus-circle', function(){
+
+          $(this).parent().remove();
+
+      });
+
+  </script>
+
+</div>
+
+{{ footer }}

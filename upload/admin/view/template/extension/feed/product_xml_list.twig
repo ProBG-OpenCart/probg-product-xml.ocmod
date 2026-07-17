@@ -1,0 +1,30 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header"><div class="container-fluid">
+    <div class="pull-right">
+      <a href="{{ add }}" class="btn btn-primary" title="{{ button_add }}"><i class="fa fa-plus"></i></a>
+      <button type="button" onclick="confirm('{{ text_confirm }}') ? $('#form-feed').submit() : false;" class="btn btn-danger" title="{{ button_delete }}"><i class="fa fa-trash-o"></i></button>
+    </div>
+    <h1>{{ heading_title }}</h1><ul class="breadcrumb">{% for breadcrumb in breadcrumbs %}<li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>{% endfor %}</ul>
+  </div></div>
+  <div class="container-fluid">
+    {% if success %}<div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}</div>{% endif %}
+    {% if error_warning %}<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}</div>{% endif %}
+    <div class="panel panel-default"><div class="panel-heading"><h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3></div>
+      <div class="panel-body"><form action="{{ delete }}" method="post" id="form-feed">
+        <div class="table-responsive"><table class="table table-bordered table-hover"><thead><tr>
+          <td style="width:1px"><input type="checkbox" onclick="$('[name*=\'selected\']').prop('checked', this.checked);" /></td>
+          <td>{{ column_name }}</td><td>{{ column_code }}</td><td>{{ column_categories }}</td><td>{{ column_status }}</td><td>{{ column_url }}</td><td class="text-right">{{ column_action }}</td>
+        </tr></thead><tbody>
+        {% if feeds %}{% for feed in feeds %}<tr>
+          <td><input type="checkbox" name="selected[]" value="{{ feed.feed_id }}" /></td>
+          <td>{{ feed.name }}</td><td><code>{{ feed.code }}</code></td><td>{{ feed.category_count ? feed.category_count : text_all_categories }}</td>
+          <td>{{ feed.status ? text_enabled : text_disabled }}</td>
+          <td><a href="{{ feed.url }}" target="_blank">{{ text_open_feed }}</a><br><small>{{ feed.seo_url }}</small></td>
+          <td class="text-right"><a href="{{ feed.edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a></td>
+        </tr>{% endfor %}{% else %}<tr><td colspan="7" class="text-center">{{ text_no_results }}</td></tr>{% endif %}
+        </tbody></table></div>
+      </form></div>
+    </div>
+  </div>
+</div>{{ footer }}
