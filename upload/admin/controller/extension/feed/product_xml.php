@@ -1,7 +1,7 @@
 <?php
 class ControllerExtensionFeedProductXml extends Controller {
   private $error = array();
-  private $fields = array('description','plain_text_description','meta_title','meta_description','meta_keyword','tags','product_url','price','special','image','additional_images','stock','product_status','quantity','weight','length','width','height','brand','model','sku','upc','ean','jan','isbn','mpn','show_categories','options','include_subcategories','include_out_of_stock');
+  private $fields = array('description','plain_text_description','meta_title','meta_description','meta_keyword','tags','product_url','seo_url','price','special','image','additional_images','stock','product_status','quantity','weight','length','width','height','brand','model','sku','upc','ean','jan','isbn','mpn','show_categories','options','include_subcategories','include_out_of_stock');
 
   public function index() {
     $this->load->language('extension/feed/product_xml');

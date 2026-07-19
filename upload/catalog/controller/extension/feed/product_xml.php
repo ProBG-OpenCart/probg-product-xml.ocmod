@@ -121,6 +121,21 @@ class ControllerExtensionFeedProductXml extends Controller {
 
       /*
       |------------------------------------------------------
+      | SEO URL Keyword
+      |------------------------------------------------------
+      */
+      if ($this->config->get('feed_product_xml_seo_url')) {
+        $seo_url = $xml->createElement('seo_url');
+        $seo_url->appendChild(
+          $xml->createCDATASection(
+            $this->getProductSeoKeyword($product['product_id'])
+          )
+        );
+        $product_node->appendChild($seo_url);
+      }
+
+      /*
+      |------------------------------------------------------
       | Description
       |------------------------------------------------------
       */
@@ -528,6 +543,20 @@ class ControllerExtensionFeedProductXml extends Controller {
     $this->response->addHeader('Content-Type: application/xml; charset=utf-8');
     $this->response->setOutput($xml->saveXML());
   }
+  private function getProductSeoKeyword($product_id) {
+    $query = $this->db->query("
+      SELECT `keyword`
+      FROM `" . DB_PREFIX . "seo_url`
+      WHERE `query` = 'product_id=" . (int)$product_id . "'
+        AND `store_id` = '" . (int)$this->config->get('config_store_id') . "'
+        AND `language_id` = '" . (int)$this->config->get('config_language_id') . "'
+      ORDER BY `seo_url_id` ASC
+      LIMIT 1
+    ");
+
+    return $query->num_rows ? $query->row['keyword'] : '';
+  }
+
   private function getCategoryPath($category_id) {
 
     $path = array();

@@ -30,6 +30,7 @@ $_['entry_meta_description'] = 'Meta Description';
 $_['entry_meta_keyword'] = 'Мета ключови думи';
 $_['entry_tags'] = 'Тагове';
 $_['entry_product_url'] = 'URL на продукта';
+$_['entry_seo_url'] = 'SEO URL на продукта';
 $_['entry_price'] = 'Цена';
 $_['entry_special'] = 'Промоционална цена';
 $_['entry_image'] = 'Основно изображение';
