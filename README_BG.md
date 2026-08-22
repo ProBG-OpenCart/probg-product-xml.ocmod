@@ -219,3 +219,13 @@ https://example.com/product-feed/supplier-feed.xml
 ## Лиценз и поддръжка
 
 Разработено от **ProBG** за OpenCart магазини и интеграции с продуктови данни.
+
+## Инсталационен пакет
+
+Качете `probg-product-xml-2.1.3.ocmod.zip` през **Extensions → Installer** и обновете кеша на OCMOD модификациите.
+
+## Подкрепете разработката
+
+Ако модулът ви е полезен, можете да подкрепите неговата разработка чрез Revolut:
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Revolut-0075EB?style=for-the-badge&logo=revolut&logoColor=white)](https://revolut.me/vtotev)

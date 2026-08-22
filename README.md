@@ -219,3 +219,13 @@ The current repository version is developed for OpenCart 3.x. The existing proje
 ## License and support
 
 Developed by **ProBG** for OpenCart stores and product-data integrations.
+
+## Installation package
+
+Upload `probg-product-xml-2.1.3.ocmod.zip` through **Extensions → Installer** and refresh the OCMOD modifications cache.
+
+## Support development
+
+If this module is useful to you, you can support its development through Revolut:
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-Revolut-0075EB?style=for-the-badge&logo=revolut&logoColor=white)](https://revolut.me/vtotev)
